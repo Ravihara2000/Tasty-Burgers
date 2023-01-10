@@ -1,0 +1,140 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+
+enum Burger_types{Chicken=1,Ham=2,Vegie=3};
+
+struct burger{
+	int receipt_no;
+	enum Burger_types Burger_type;
+	int  quantity;
+	float total_price; 
+	
+};
+
+
+
+struct burger barray[25];
+
+
+int i=0;
+int g=0;
+float price;
+int main()
+{
+	int order;
+
+	do{
+		printf("Welcome to Tasty Burgers \n");
+		printf("Place your order here...\n");
+		printf("\t1.Order Burger\n");
+		printf("\t2.Cancel\n");
+		printf("\t3.Exit\n\n");
+		printf("Select your option:\n");
+		scanf("%d",&order);
+		switch(order)
+		{
+			
+				case 1:
+					{
+					  char s;
+					  while(1){
+					   printf("Select the burger type:\n");
+					   	printf("A-Chicken Burger -15$\n");
+						printf("B-Ham Burger -17$\n");
+						printf("C-Vegie Burger -13$\n");
+						printf("X - To return to main menu\n");
+						printf("Select the burger type:\n");
+						scanf("%c",&s);
+						if(s=='A'){
+							printf("You have selected Chicken Burger.");
+							barray[i].Burger_type=Chicken;
+							price=15;
+							break;
+						}else if(s=='B'){
+							printf("You have selected Ham Burger.");
+							barray[i].Burger_type=Ham;
+							price=17;
+							break;
+						}else if(s=='C'){
+							printf("You have selected Vegie Burger.");
+							barray[i].Burger_type=Vegie;
+							price=13;
+							break;							
+						}else if(s=='X'){
+							main();
+						}else{
+							printf("Wrong option enter again!\n");
+						}
+					  }
+					   printf("How many burgers you wish you order?");
+					   scanf("%d",&barray[i].quantity);
+					   
+					   float total=barray[i].quantity*price;
+					   float Final;
+					   if(barray[i].quantity>=5){
+						   float newtotal = (total /100)*10;
+						   Final = total - newtotal;
+						   printf("Your total bill value is %.2f Discount\n",total);
+						   printf("- %.2f \n",newtotal);
+						   printf("Final bill value is %.2f \n",Final);
+						   barray[i].total_price = Final;
+						   barray[i].receipt_no=rand()%25+1;
+						   printf("Your receipt number is B00%d \n",barray[i].receipt_no);
+						   printf("Please go to a register and make the payment by quoting the Receipt Number B00%d \n",barray[i].receipt_no);
+						   printf("<<Press Any Key to show the main menu>>\n");
+						   i++;
+					   }else{
+						   
+						   barray[i].total_price =total;
+						   printf("Your total bill value is %.2f \n",total);
+						   barray[i].receipt_no=rand()%25+1;
+						   printf("Your receipt number is B00%d \n",barray[i].receipt_no);
+						   printf("Please go to a register and make the payment by quoting the Receipt Number B00%d \n",barray[i].receipt_no);
+						   printf("<<Press Any Key to show the main menu>>\n"); 
+						   i++;
+					   }
+					   
+					};
+				   break;
+				case 2:{
+					int s,add;
+					printf("Please enter your Receipt Number.\nB00");
+					scanf("%d",&add);
+					for(int y=0;y<i;y++){
+						if(add==barray[y].receipt_no)
+						{
+							g++;
+							i--;
+							for(int u=y;u<=i;u++){
+								barray[u]=barray[u+1];
+							}
+							
+							printf("Your order has been cancelled.Thank you \n");
+							break;
+						}
+					}
+					
+					if(g==0){
+						printf("There is no order \n");
+					}
+					g=0;
+					printf("<<Press Any Key to show the main menu>>\n");
+				};
+				break;
+			case 3: exit(0);
+			
+			default :printf("Wrong option ! \n");
+			
+		}
+		
+		
+	
+	}while(order !=3);
+	
+	
+		
+	
+	
+}
